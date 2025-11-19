@@ -1,0 +1,35 @@
+
+name: "OpenAPI YAML to JSON Converter"
+description: "Converts an OpenAPI YAML specification to JSON and commits the updated file"
+author: "Devi Prakash"
+branding:
+  color: "blue"
+  icon: "gear"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Run conversion script
+      run: ./entrypoint.sh "${{ inputs.yaml_path }}" "${{ inputs.json_path }}" "${{ inputs.git_username }}" "${{ inputs.git_email }}" "${{ inputs.commit_message }}"
+
+inputs:
+  yaml_path:
+    description: "Path to the OpenAPI YAML file (input)"
+    required: true
+  json_path:
+    description: "Path where the converted JSON should be saved (output)"
+    required: true
+  git_username:
+    description: "GitHub username for committing changes"
+    required: true
+  git_email:
+    description: "GitHub email for committing changes"
+    required: true
+  commit_message:
+    description: "Commit message for JSON updates"
+    required: false
+    default: "Update JSON from YAML"
+
