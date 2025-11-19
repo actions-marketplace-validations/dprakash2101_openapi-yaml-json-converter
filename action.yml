@@ -1,4 +1,4 @@
-name: "OpenAPI YAML to JSON Converter"
+name: "openapi-yaml-json-converter"
 description: "Converts an OpenAPI YAML specification to JSON and commits the updated file"
 author: "Devi Prakash"
 
@@ -15,16 +15,14 @@ runs:
     - name: Run conversion script
       shell: bash
       run: |
-        # Ensure the entrypoint is executable
         chmod +x "${{ github.action_path }}/entrypoint.sh"
-
-        # Run the script with all inputs
         "${{ github.action_path }}/entrypoint.sh" \
           "${{ inputs.yaml_path }}" \
           "${{ inputs.json_path }}" \
           "${{ inputs.git_username }}" \
           "${{ inputs.git_email }}" \
-          "${{ inputs.commit_message }}"
+          "${{ inputs.commit_message }}" \
+          "${{ inputs.token }}"
 
 inputs:
   yaml_path:
@@ -43,3 +41,6 @@ inputs:
     description: "Commit message for JSON updates"
     required: false
     default: "Update JSON from YAML"
+  token:
+    description: "Token to authenticate Git push"
+    required: true
