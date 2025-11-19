@@ -1,4 +1,3 @@
-
 name: "OpenAPI YAML to JSON Converter"
 description: "Converts an OpenAPI YAML specification to JSON and commits the updated file"
 author: "Devi Prakash"
@@ -14,6 +13,7 @@ runs:
       uses: actions/checkout@v4
 
     - name: Run conversion script
+      shell: bash                 
       run: ./entrypoint.sh "${{ inputs.yaml_path }}" "${{ inputs.json_path }}" "${{ inputs.git_username }}" "${{ inputs.git_email }}" "${{ inputs.commit_message }}"
 
 inputs:
@@ -33,4 +33,3 @@ inputs:
     description: "Commit message for JSON updates"
     required: false
     default: "Update JSON from YAML"
-
